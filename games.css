@@ -1,0 +1,54 @@
+@import url("imp.css");
+.cell{
+    width: 150px;
+    height: 150px;
+    border: 2px solid;
+    color: var(--textcolour);
+    line-height: 150px;
+    font-size: 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+}
+#gamectn{
+    font-family: "Permanent Marker",cursive;
+    text-align: center;
+}
+#gamecontainer{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 225px;
+    margin: auto;
+}
+h2{
+    color: var(--textcolour);
+    
+}
+#rst{
+    background-color: #ec0404;
+    color: var(--textcolour);
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+    
+}
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    height: 80%;
+}
+@keyframes highlight {
+    0% { background-color: #B1F0F7; }
+    50% { background-color: #81BFDA; }
+    100% { background-color: #F5F0CD; }
+}
+
+.winning-cell {
+    animation: highlight 2s ease-in-out infinite;
+}
+

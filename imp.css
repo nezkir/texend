@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: var(--basecolour);
+}
+
+:root {
+    --basecolour: #1E1E1E;
+    --textcolour: white;
+    --border: #C0C0C0;
+}
+
+.lightmode {
+    --basecolour: #F1F0E8;
+    --textcolour: #1E1E1E;
+}
+
+.lightmode #theme svg:first-child {
+    display: none;
+}
+
+.lightmode #theme svg:last-child {
+    display: block;
+}
+
+.login-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--basecolour);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    font-family: 'Work Sans';
+}
+
+h1 {
+    color: var(--textcolour);
+    font-size: 32px;
+    padding-top: 25px;
+    padding-bottom: 0px;
+}
+
+.username {
+    background-color: transparent;
+    width: 225px;
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid transparent;
+    transition: all 0.45s ease-in-out;
+    border-color: #C0C0C0;
+    border-width: 2.5px;
+}
+
+.username:hover {
+    box-shadow: 0 0 15px #AAFF00;
+    border-color: #AAFF00;
+}
+
+input::placeholder {
+    transition: color 1s;
+    color: var(--textcolour);
+    padding-left: 25px;
+}
+
+input:hover::placeholder {
+    color: var(--textcolour);
+}
+
+input:not(:hover)::placeholder {
+    color: initial;
+}
+
+.password {
+    background-color: transparent;
+    width: 225px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    outline: none;
+    transition: all 0.45s ease-in-out;
+    border-color: var(--border);
+    border-width: 2.5px;
+}
+
+.password:hover {
+    box-shadow: 0 0 15px #AAFF00;
+    border-color: #AAFF00;
+}
+
+.button {
+    background-color: #ec0404;
+    color: var(--textcolour);
+    width: 100px;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.65s ease-in-out;
+}
+
+.button:hover {
+    color: #ec0404;
+    background-color: var(--textcolour);
+    box-shadow: 0 0 10px 1px var(--textcolour);
+}
+
+.login-register {
+    display: flex;
+    gap: 80px;
+    z-index: 1;
+}
+
+#log {
+    font-size: 14px;
+    color: var(--border);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+#log:hover{
+    border-bottom: 1px solid var(--textcolour);
+    transform: scale(1.1);
+}
+
+#Reg {
+    font-size: 14px;
+    color: var(--border);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+#Reg:hover{
+    border-bottom: 1px solid var(--textcolour);
+    transform: scale(1.1);
+}
+
+.grid-2 {
+    background-color: var(--basecolour);
+    color: var(--textcolour);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0px;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    height: 200px;
+}
+
+h1 {
+    padding: 0px;
+}
+
+.grid-1 {
+    position: relative;
+    overflow: hidden;
+}
+
+.input-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--textcolour);
+    pointer-events: none;
+}
+
+.input-container {
+    position: relative;
+    z-index: 1;
+}
+
+.password-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--textcolour);
+    pointer-events: none;
+}
+
+.password-container {
+    position: relative;
+    z-index: 1;
+}
+
+#theme {
+    height: auto;
+    width: auto;
+    padding: 0;
+    border-radius: 20%;
+    background-color: var(--basecolour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: auto;
+    right: 50px;
+    border: none;
+}
+
+#theme svg {
+    fill: var(--textcolour);
+}
+
+#theme svg:last-child {
+    display: none;
+}
