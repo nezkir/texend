@@ -34,6 +34,11 @@ function cellClick(){
 function update(cell,index){
     options[index] = currentply;
     cell.textContent = currentply;
+    if (currentply === "X") {
+        cell.style.color = "#007FFF"
+    } else {
+        cell.style.color = "#FF033E"; 
+    }
 }
 function change(){
     currentply = (currentply == "X")? "O":"X";
@@ -80,7 +85,9 @@ function reset() {
     statustxt.textContent = `${currentply}'s turn`;
     cell.forEach(cell => {
         cell.textContent = "";
-        cell.classList.remove("winning-cell"); // Remove animation class
+        cell.style.color = ""; // Reset color
+        cell.classList.remove("winning-cell"); // Reset winning cell highlight
     });
     running = true;
 }
+

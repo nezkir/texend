@@ -1,0 +1,10 @@
+@import url("imp.css");
+.games{
+    display: flex;
+    flex-direction: row;
+    
+}
+button{
+    background-color: var(--basecolour);
+    
+}
