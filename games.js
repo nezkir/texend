@@ -1,6 +1,7 @@
 const cell = document.querySelectorAll(".cell");
 const statustxt = document.querySelector("#status");
 const rtn = document.querySelector("#rst");
+
 const win = [
     [0,1,2],
     [3,4,5],

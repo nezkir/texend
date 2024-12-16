@@ -1,0 +1,26 @@
+@import url("imp.css");
+#board{
+    border: 3px solid;
+}
+#gamecontainer{
+      text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;    /* Center items horizontally */
+    gap: 20px;  
+}
+#score {
+   
+    font-size: 100px;
+    color: var(--textcolour);
+
+}
+#resetbtn{
+    
+    font-size: 22px;
+    width: 100px;
+    height: 50px;
+    border: 4px solid;
+    border-radius: 15px;
+    
+}
