@@ -86,7 +86,7 @@ function gamestart() {
 
 function nextTick() {
     if (running) {
-        const speed = Math.max(25, 75 - src * 2);
+        const speed = Math.max(25, 100 - src * 2);
         setTimeout(() => {
             clearboard();
             drawfood();
