@@ -1,0 +1,38 @@
+@import url("imp.css");
+#ctn{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+#board{
+    height: 640px;
+    width: 730px;
+    background-color: blue;
+    border: 10px solid navy;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.tile{
+    height: calc(540px/6);
+    width: calc(630px/7);
+    background-color: var(--textcolour);
+    border-radius: 50%;
+    margin: 5px;
+    box-sizing: border-box;
+    border: 5px solid navy;
+
+
+
+    
+}
+.red-piece{
+    background-color: red;
+
+}
+.yellow-piece{
+    background-color: yellow;
+}
+#turn,#moves,#winner{
+    color: var(--textcolour);
+}
