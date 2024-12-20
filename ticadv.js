@@ -1,0 +1,113 @@
+let cell = document.querySelectorAll(".cell");
+const statustxt = document.querySelector("#status");
+const rtn = document.querySelector("#rst");
+
+const win = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8]
+];
+let options = ["", "", "", "", "", "", "", "", ""];
+let currentply = "X";
+let running = false;
+let moveHistory = { X: [], O: [] }; // Track each player's moves
+
+game();
+
+function game() {
+    cell.forEach((cellElement, index) => {
+        cellElement.setAttribute("cellIndex", index);
+        cellElement.addEventListener("click", cellClick);
+    });
+    rtn.addEventListener("click", reset);
+    statustxt.textContent = `${currentply}'s turn`;
+    running = true;
+}
+
+function cellClick() {
+    const cellIndex = this.getAttribute("cellIndex");
+    if (options[cellIndex] !== "" || !running) {
+        return;
+    }
+    update(this, cellIndex);
+    check();
+}
+
+function update(cell, index) {
+    options[index] = currentply;
+    cell.textContent = currentply;
+    moveHistory[currentply].push(index); // Track move
+  
+    // Remove oldest move immediately if exceeding 3 moves
+    if (moveHistory[currentply].length > 3) {
+      const oldestMove = moveHistory[currentply].shift();
+      options[oldestMove] = "";
+  
+      // Directly target the cell using its cellIndex
+      const oldCell = document.querySelector(`[cellIndex="${oldestMove}"]`);
+      oldCell.textContent = "";
+      oldCell.style.color = "";
+    }
+  
+    if (currentply === "X") {
+      cell.style.color = "#007FFF";
+    } else {
+      cell.style.color = "#FF033E";
+    }
+  }
+function change() {
+    currentply = currentply === "X" ? "O" : "X";
+    statustxt.textContent = `${currentply}'s turn`;
+}
+
+function check() {
+    let won = false;
+    let winningCombo = [];
+    for (let i = 0; i < win.length; i++) {
+        const condition = win[i];
+        const cellA = options[condition[0]];
+        const cellB = options[condition[1]];
+        const cellC = options[condition[2]];
+
+        if (cellA === "" || cellB === "" || cellC === "") {
+            continue;
+        }
+        if (cellA === cellB && cellB === cellC) {
+            won = true;
+            winningCombo = condition; // Store the winning combination
+            break;
+        }
+    }
+    if (won) {
+        statustxt.textContent = `${currentply} wins!`;
+        running = false;
+
+        // Highlight winning cells
+        winningCombo.forEach(index => {
+            cell[index].classList.add("winning-cell");
+        });
+    } else if (!options.includes("")) {
+        statustxt.textContent = `It's a draw!`;
+        running = false;
+    } else {
+        change();
+    }
+}
+
+function reset() {
+    currentply = "X";
+    options = ["", "", "", "", "", "", "", "", ""];
+    moveHistory = { X: [], O: [] }; // Reset move history
+    statustxt.textContent = `${currentply}'s turn`;
+    cell.forEach(cell => {
+        cell.textContent = "";
+        cell.style.color = ""; // Reset color
+        cell.classList.remove("winning-cell"); // Reset winning cell highlight
+    });
+    running = true;
+}

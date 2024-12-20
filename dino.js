@@ -45,6 +45,17 @@ let flyingYMin = 150;
 let flyingYMax = boardHeight - 80;
 let flyingImg;
 
+// Food
+let foodArray = [];
+let foodWidth = 40;
+let foodHeight = 40;
+let foodX = boardWidth;
+let foodYMin = 50;
+let foodYMax = boardHeight - 120;
+let foodImg;
+let jumpBoostActive = false;
+let boostTimer = 0;
+
 // Physics
 let velocityX = -8; // Cactus and flying enemies moving left speed
 let velocityY = 0;
@@ -87,9 +98,14 @@ window.onload = function () {
     flyingImg = new Image();
     flyingImg.src = "./img/bird1.png";  // Corrected the image path to bird1.png
 
+    // Load food image
+    foodImg = new Image();
+    foodImg.src = "./img/food.png";
+
     requestAnimationFrame(update);
     setInterval(placeCactus, 1000); // 1000 milliseconds = 1 second
     setInterval(placeFlyingEnemy, 3000); // 3000 milliseconds = 3 seconds
+    setInterval(placeFood, 7000); // 7000 milliseconds = 7 seconds
     document.addEventListener("keydown", moveDino);
     document.addEventListener("keyup", releaseDino);
 }
@@ -112,6 +128,9 @@ function update() {
         // Apply normal gravity when not ducking
         dino.y = Math.min(dino.y + velocityY, dinoY); // Ensure it doesn't go below the ground
     }
+
+    // Ensure dino doesn't jump out of the frame
+    dino.y = Math.max(0, dino.y);
 
     // Draw the dino
     context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
@@ -137,7 +156,6 @@ function update() {
         flying.x += velocityX;
         context.drawImage(flyingImg, flying.x, flying.y, flying.width, flying.height);
 
-        // If the flying enemy is within a height range that requires ducking
         if (detectCollision(dino, flying) && !isDucking) {
             gameOver = true;
             dinoImg.src = "./img/dino-dead.png";
@@ -146,6 +164,19 @@ function update() {
             }
         }
     }
+
+    // Food
+    for (let i = 0; i < foodArray.length; i++) {
+        let food = foodArray[i];
+        food.x += velocityX;
+        context.drawImage(foodImg, food.x, food.y, food.width, food.height);
+
+        if (detectCollision(dino, food)) {
+            foodArray.splice(i, 1); // Remove the food from the array
+            activateJumpBoost();
+        }
+    }
+
     // Gradually increase the speed
     if (score % speedIncreaseInterval === 0 && score > 0) {
         velocityX -= speedIncreaseRate;
@@ -156,6 +187,18 @@ function update() {
     context.font = "20px courier";
     score++;
     context.fillText(score, 5, 20);
+
+    // Display boost timer if active
+    if (jumpBoostActive) {
+        boostTimer--;
+        context.fillStyle = "red";
+        context.font = "18px courier";
+        context.fillText(`Boost: ${Math.ceil(boostTimer / 60)}s`, boardWidth - 100, 20);
+
+        if (boostTimer <= 0) {
+            deactivateJumpBoost();
+        }
+    }
 }
 
 function moveDino(e) {
@@ -165,8 +208,8 @@ function moveDino(e) {
 
     if ((e.code == "Space" || e.code == "ArrowUp") && dino.y == dinoY && !isDucking) {
         // Jump
-        velocityY = -10;
-    } else if ((e.code == "ArrowDown" || e.code == "ShiftLeft" || e.code == "ShiftRight")&& dino.y == dinoY) {
+        velocityY = jumpBoostActive ? -14 : -10;
+    } else if ((e.code == "ArrowDown" || e.code == "ShiftLeft" || e.code == "ShiftRight") && dino.y == dinoY) {
         // Duck
         isDucking = true;
         dino.height = dinoHeight / 2; // Reduce height to half
@@ -247,13 +290,43 @@ function placeFlyingEnemy() {
     }, 3000); // Reset flag after 3 seconds to allow a new bird to spawn
 }
 
+function placeFood() {
+    if (gameOver) {
+        return;
+    }
+
+    // Place food
+    let food = {
+        img: foodImg,
+        x: foodX,
+        y: Math.random() * (foodYMax - foodYMin) + foodYMin, // Random Y position for food
+        width: foodWidth,
+        height: foodHeight
+    }
+
+    foodArray.push(food);
+
+    if (foodArray.length > 3) {
+        foodArray.shift(); // Remove the first element from the array so that the array doesn't constantly grow
+    }
+}
+
+function activateJumpBoost() {
+    jumpBoostActive = true;
+    boostTimer = 5 * 60; // 5 seconds in frames (60 FPS)
+}
+
+function deactivateJumpBoost() {
+    jumpBoostActive = false;
+}
+
 function detectCollision(a, b) {
     return a.x < b.x + b.width &&   // a's top left corner doesn't reach b's top right corner
            a.x + a.width > b.x &&   // a's top right corner passes b's top left corner
            a.y < b.y + b.height &&  // a's top left corner doesn't reach b's bottom left corner
            a.y + a.height > b.y;    // a's bottom left corner passes b's top left corner
 }
-// Add this function to reset the game
+
 // Add this function to reset the game
 function resetGame() {
     gameOver = false;
@@ -264,7 +337,9 @@ function resetGame() {
     velocityX = -8; // Reset the cactus and flying enemies speed
     cactusArray = [];
     flyingArray = [];
+    foodArray = [];
     isBirdSpawned = false;
+    jumpBoostActive = false;
     dinoImg.src = "./img/dino.png"; // Reset dino image
     requestAnimationFrame(update); // Restart the game loop
     window.location.reload();

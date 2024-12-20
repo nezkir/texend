@@ -13,7 +13,7 @@
     <link rel = "stylesheet" href = "rikzen.css">
     <link rel = "stylesheet" href = "realtime.css">
     <link rel = "stylesheet" href="header.css">
-    <link rel = "stylesheet" href="gamebtn.css">
+    <link rel = "stylesheet" href="games.css">
     <link rel = "stylesheet" href="theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,12 +56,38 @@
                         </ul>
                 </header>
             
-                <div class="container">
-                    <button class="btn" onclick="window.location.href='tictacpage.html';">Tic Tac Toe</button>
-                    <button class="btn" onclick="window.location.href='snake.html';">Snake</button>
-                    <button class="btn" onclick="window.location.href='connect4.html';">Connect 4</button>
-                    <button class="btn" onclick="window.location.href='dino.html';">Dino</button>
-                </div>
+                
+                    
+                        <div id="gamectn">
+                            <div id = "gamecontainer">
+                                <div cellIndex = "0" class="cell"></div>
+                                <div cellIndex = "1" class="cell"></div>
+                                <div cellIndex = "2" class="cell"></div>
+                                <div cellIndex = "3" class="cell"></div>
+                                <div cellIndex = "4" class="cell"></div>
+                                <div cellIndex = "5" class="cell"></div>
+                                <div cellIndex = "6" class="cell"></div>
+                                <div cellIndex = "7" class="cell"></div>
+                                <div cellIndex = "8" class="cell"></div>
+                            </div>
+                                <br>
+                                <h2 id = "status"></h2>
+                                <br>
+                               
+                                <button id = "rst">Restart</button> 
+                                                                            
+                                
+                                <script src = "ticadv.js">
+
+                                </script>
+                            
+                        
+
+                        </div>
+                
+             
+            
+ 
                 
             </div>
         
